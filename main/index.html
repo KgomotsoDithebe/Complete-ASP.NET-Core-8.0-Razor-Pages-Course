@@ -1,0 +1,2942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASP.NET Core 8.0 Razor Pages - Complete Course</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Code syntax highlighting -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/themes/prism.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3182ce;
+            --secondary-color: #2d3748;
+            --accent-color: #ed8936;
+            --text-color: #1a202c;
+            --light-bg: #f7fafc;
+            --code-bg: #f8f8f8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--secondary-color);
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            border-bottom: 4px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.25rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        pre {
+            margin: 1rem 0;
+            padding: 1rem;
+            overflow-x: auto;
+            background-color: var(--code-bg);
+            border-radius: 0.25rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9rem;
+            padding: 0.2rem 0.4rem;
+            background-color: var(--code-bg);
+            border-radius: 0.25rem;
+        }
+
+        pre code {
+            padding: 0;
+            background-color: transparent;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        table th,
+        table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #e2e8f0;
+        }
+
+        table th {
+            background-color: #edf2f7;
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        blockquote {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-left: 4px solid var(--accent-color);
+            background-color: #fffaf0;
+        }
+
+        ul,
+        ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .note-box {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+        }
+
+        .warning-box {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            background-color: #fff7e6;
+            border-left: 4px solid #fa8c16;
+        }
+
+        .best-practice-box {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            background-color: #f6ffed;
+            border-left: 4px solid #52c41a;
+        }
+
+        .code-filename {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .diagram {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.25rem;
+            background-color: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .section-nav {
+            position: sticky;
+            top: 1rem;
+            height: calc(100vh - 2rem);
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .section-nav-inner {
+            padding: 1rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .section-nav a {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .section-nav a:hover {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            background-color: rgba(49, 130, 206, 0.05);
+        }
+
+        .section-nav a.active {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .section-nav .subsection {
+            padding-left: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .code-tabs {
+            margin: 1.5rem 0;
+        }
+
+        .code-tabs-header {
+            display: flex;
+            margin-bottom: -1px;
+        }
+
+        .code-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.25rem 0.25rem 0 0;
+            background-color: #f8fafc;
+            margin-right: 0.25rem;
+        }
+
+        .code-tab.active {
+            background-color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        .code-tab-content {
+            border: 1px solid #e2e8f0;
+            border-radius: 0 0.25rem 0.25rem 0.25rem;
+            padding: 1rem;
+            background-color: #fff;
+        }
+
+        .mermaid {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .section-nav {
+                position: static;
+                height: auto;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Animation for feature cards */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Visual diagram styles */
+        .visual-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .visual-diagram .box {
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .visual-diagram .arrow {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin: 0.5rem 0;
+        }
+
+        .visual-diagram .flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .visual-diagram .flow-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 1rem;
+        }
+
+        .lifecycle-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .lifecycle-step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .lifecycle-step::after {
+            content: "→";
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .lifecycle-step:last-child::after {
+            content: "";
+        }
+
+        .lifecycle-step h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #e2e8f0;
+        }
+
+        .compare-table th {
+            background-color: #edf2f7;
+            font-weight: 600;
+        }
+
+        .compare-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .compare-table .feature-name {
+            font-weight: 600;
+        }
+
+        .compare-code {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .compare-code-column {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .compare-code-column h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #666;
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-bold mb-4 text-blue-700">ASP.NET Core 8.0 Razor Pages</h1>
+            <p class="text-xl text-gray-600">A Comprehensive Course</p>
+        </header>
+
+        <div class="flex flex-wrap -mx-4">
+            <!-- Table of Contents -->
+            <div class="w-full lg:w-1/4 px-4 mb-8">
+                <div class="section-nav">
+                    <div class="section-nav-inner">
+                        <h3 class="text-lg font-semibold mb-4">Table of Contents</h3>
+                        <nav>
+                            <a href="#section-1">1. Introduction to Razor Pages</a>
+                            <a href="#section-2">2. Razor Pages vs MVC</a>
+                            <a href="#section-3">3. Page Model</a>
+                            <a href="#section-4">4. Routing</a>
+                            <a href="#section-5">5. Handler Methods</a>
+                            <a href="#section-6">6. Model Binding</a>
+                            <a href="#section-7">7. Form Validation</a>
+                            <a href="#section-8">8. Tag Helpers</a>
+                            <a href="#section-9">9. Dependency Injection</a>
+                            <a href="#section-10">10. View Components</a>
+                            <a href="#section-11">11. Partial Views</a>
+                            <a href="#section-12">12. Middleware & Configuration</a>
+                            <a href="#section-13">13. Authentication & Authorization</a>
+                            <a href="#section-14">14. API Integration</a>
+                            <a href="#section-15">15. Advanced Scenarios & Best Practices</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="w-full lg:w-3/4 px-4">
+                <main>
+                    <!-- Section 1: Introduction to Razor Pages -->
+                    <section id="section-1" class="mb-16">
+                        <h1>1. Introduction to Razor Pages</h1>
+
+                        <p>Razor Pages is a page-focused framework introduced in ASP.NET Core 2.0 for building dynamic,
+                            data-driven web applications. It offers a simpler alternative to the traditional MVC pattern
+                            while maintaining all the powerful features of ASP.NET Core.</p>
+
+                        <h3>What are Razor Pages?</h3>
+                        <p>Razor Pages are .cshtml files that contain HTML markup and C# code using Razor syntax. Each
+                            page works as a self-contained endpoint with its view and logic together, making it easier
+                            to reason about functionality.</p>
+
+                        <div class="feature-grid">
+                            <div class="feature-card animate-fadeIn" style="animation-delay: 0.1s;">
+                                <h4><i class="fas fa-file-code mr-2"></i>Page-Focused Development</h4>
+                                <p>Each Razor Page is a self-contained endpoint, simplifying the development of
+                                    page-specific functionality.</p>
+                            </div>
+                            <div class="feature-card animate-fadeIn" style="animation-delay: 0.2s;">
+                                <h4><i class="fas fa-tools mr-2"></i>Built-in Support</h4>
+                                <p>Includes built-in support for common tasks like routing, model binding, and form
+                                    validation.</p>
+                            </div>
+                            <div class="feature-card animate-fadeIn" style="animation-delay: 0.3s;">
+                                <h4><i class="fas fa-layer-group mr-2"></i>Separation of Concerns</h4>
+                                <p>Clean separation between UI (Razor markup) and business logic (PageModel classes).
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>Project Structure</h3>
+                        <div class="diagram">
+                            <pre><code>MyRazorApp/
+ ├── Pages/                  # Contains Razor Pages
+ │   ├── _ViewImports.cshtml # Common imports and directives
+ │   ├── _ViewStart.cshtml   # Common view initialization
+ │   ├── _Layout.cshtml      # Shared layout template
+ │   ├── Index.cshtml        # Homepage
+ │   └── Index.cshtml.cs     # PageModel for Homepage
+ ├── wwwroot/                # Static files (CSS, JS, images)
+ ├── Program.cs              # App startup and configuration
+ └── appsettings.json        # Configuration settings</code></pre>
+                        </div>
+
+                        <h3>A Simple Razor Page</h3>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">Index.cshtml</div>
+                                <div class="code-tab">Index.cshtml.cs</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">Index.cshtml</div>
+                                <pre><code class="language-cshtml">@page
+@model IndexModel
+
+&lt;h1>Welcome to Razor Pages!&lt;/h1>
+
+&lt;p>The time is now: @DateTime.Now&lt;/p>
+
+&lt;p>Message from model: @Model.Message&lt;/p>
+
+&lt;form method="post">
+    &lt;button type="submit" class="btn btn-primary">Click Me!&lt;/button>
+&lt;/form></code></pre>
+
+                                <div class="code-filename" style="display:none;">Index.cshtml.cs</div>
+                                <pre style="display:none;"><code class="language-csharp">using Microsoft.AspNetCore.Mvc.RazorPages;
+
+public class IndexModel : PageModel
+{
+    public string Message { get; set; } = "";
+
+    public void OnGet()
+    {
+        Message = "Hello from the OnGet method!";
+    }
+
+    public void OnPost()
+    {
+        Message = "You clicked the button!";
+    }
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Basic Anatomy of a Razor Page</h3>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="flow-item">
+                                    <div class="box bg-blue-100">
+                                        <h4>@page directive</h4>
+                                        <p>Makes the .cshtml file handle requests directly</p>
+                                    </div>
+                                </div>
+                                <div class="flow-item">
+                                    <div class="box bg-green-100">
+                                        <h4>@model directive</h4>
+                                        <p>Specifies the PageModel class for this page</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flow">
+                                <div class="flow-item">
+                                    <div class="box bg-yellow-100">
+                                        <h4>HTML Markup</h4>
+                                        <p>Standard HTML with Razor syntax integration</p>
+                                    </div>
+                                </div>
+                                <div class="flow-item">
+                                    <div class="box bg-red-100">
+                                        <h4>Razor Syntax</h4>
+                                        <p>@-prefixed C# code embedded in HTML</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flow">
+                                <div class="flow-item">
+                                    <div class="box bg-purple-100">
+                                        <h4>PageModel Class</h4>
+                                        <p>Contains the page's logic and data</p>
+                                    </div>
+                                </div>
+                                <div class="flow-item">
+                                    <div class="box bg-indigo-100">
+                                        <h4>Handler Methods</h4>
+                                        <p>OnGet(), OnPost(), etc. to process requests</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Why Razor Pages?</h3>
+                        <p>Razor Pages was created to simplify web development in ASP.NET Core and provide a more
+                            intuitive page-based programming model that's easier to learn, especially for developers new
+                            to ASP.NET Core.</p>
+
+                        <div class="note-box">
+                            <h4 class="mt-0"><i class="fas fa-lightbulb mr-2"></i>Key Takeaway</h4>
+                            <p class="mb-0">Razor Pages offers a more straightforward approach to building web
+                                applications by combining the view (HTML) and controller logic (C# code) into a single
+                                file or paired files, making it easier to understand the relationship between the UI and
+                                its behavior.</p>
+                        </div>
+                    </section>
+
+                    <!-- Section 2: Razor Pages vs MVC -->
+                    <section id="section-2" class="mb-16">
+                        <h1>2. Razor Pages vs MVC</h1>
+
+                        <p>Both Razor Pages and MVC are patterns for building web applications in ASP.NET Core.
+                            Understanding their differences helps you choose the right approach for your project.</p>
+
+                        <div class="table-wrapper">
+                            <table class="compare-table">
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Razor Pages</th>
+                                        <th>MVC</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="feature-name">Architecture</td>
+                                        <td>Page-centric, with view and controller logic combined</td>
+                                        <td>Separates Models, Views, and Controllers into different components</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">File Organization</td>
+                                        <td>CSHTML file and PageModel class paired together</td>
+                                        <td>Controllers, Views, and Models in separate directories</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">URL Routing</td>
+                                        <td>File-based routing (by default)</td>
+                                        <td>Convention-based and attribute routing</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">Entry Point</td>
+                                        <td>The Razor Page itself with @page directive</td>
+                                        <td>Controller action methods</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">Best For</td>
+                                        <td>Simpler, page-focused scenarios</td>
+                                        <td>Complex applications with many shared components</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">Learning Curve</td>
+                                        <td>Generally easier to learn</td>
+                                        <td>Steeper learning curve</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Architecture Comparison</h3>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="flow-item">
+                                    <h4 class="text-center">Razor Pages</h4>
+                                    <div class="box bg-blue-100">
+                                        <p class="mb-0">View (.cshtml)</p>
+                                    </div>
+                                    <div class="arrow">↕</div>
+                                    <div class="box bg-green-100">
+                                        <p class="mb-0">PageModel (.cs)</p>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-2">Razor Pages combines the View and Controller
+                                        aspects into a single page-based unit, where the page handles both rendering and
+                                        request processing.</p>
+                                </div>
+
+                                <div class="flow-item">
+                                    <h4 class="text-center">MVC</h4>
+                                    <div class="box bg-yellow-100">
+                                        <p class="mb-0">Controller</p>
+                                    </div>
+                                    <div class="arrow">↔</div>
+                                    <div class="box bg-red-100">
+                                        <p class="mb-0">Model</p>
+                                    </div>
+                                    <div class="arrow">↔</div>
+                                    <div class="box bg-purple-100">
+                                        <p class="mb-0">View</p>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-2">MVC separates an application into three
+                                        components: Models (data), Views (display), and Controllers (input handling).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Code Comparison</h3>
+
+                        <div class="compare-code">
+                            <div class="compare-code-column">
+                                <h4>Razor Pages Example</h4>
+
+                                <div class="code-filename">Index.cshtml</div>
+                                <pre><code class="language-cshtml">@page
+@model IndexModel
+
+&lt;h1>Products&lt;/h1>
+
+&lt;ul>
+    @foreach (var product in Model.Products)
+    {
+        &lt;li>@product.Name - [email protected]&lt;/li>
+    }
+&lt;/ul></code></pre>
+
+                                <div class="code-filename">Index.cshtml.cs</div>
+                                <pre><code class="language-csharp">using Microsoft.AspNetCore.Mvc.RazorPages;
+
+public class IndexModel : PageModel
+{
+    public List&lt;Product> Products { get; set; } = new();
+    
+    public void OnGet()
+    {
+        // Load products, e.g. from a service
+        Products = new List&lt;Product>
+        {
+            new Product { Id = 1, Name = "Product A", Price = 9.99m },
+            new Product { Id = 2, Name = "Product B", Price = 19.99m }
+        };
+    }
+    
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public decimal Price { get; set; }
+    }
+}</code></pre>
+                            </div>
+
+                            <div class="compare-code-column">
+                                <h4>MVC Example</h4>
+
+                                <div class="code-filename">ProductsController.cs</div>
+                                <pre><code class="language-csharp">using Microsoft.AspNetCore.Mvc;
+
+public class ProductsController : Controller
+{
+    public IActionResult Index()
+    {
+        // Load products, e.g. from a service
+        var products = new List&lt;Product>
+        {
+            new Product { Id = 1, Name = "Product A", Price = 9.99m },
+            new Product { Id = 2, Name = "Product B", Price = 19.99m }
+        };
+        
+        return View(products);
+    }
+}</code></pre>
+
+                                <div class="code-filename">Index.cshtml (in Views/Products)</div>
+                                <pre><code class="language-cshtml">@model List&lt;Product>
+
+&lt;h1>Products&lt;/h1>
+
+&lt;ul>
+    @foreach (var product in Model)
+    {
+        &lt;li>@product.Name - [email protected]&lt;/li>
+    }
+&lt;/ul></code></pre>
+
+                                <div class="code-filename">Product.cs</div>
+                                <pre><code class="language-csharp">public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
+    public decimal Price { get; set; }
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <h3>When to Choose Each Pattern</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card bg-blue-50">
+                                <h4>When to Choose Razor Pages</h4>
+                                <ul class="mb-0">
+                                    <li>For smaller applications</li>
+                                    <li>When you need a page-focused development approach</li>
+                                    <li>For simpler CRUD operations</li>
+                                    <li>When your pages have distinct functionality</li>
+                                    <li>For beginners learning ASP.NET Core</li>
+                                </ul>
+                            </div>
+
+                            <div class="feature-card bg-green-50">
+                                <h4>When to Choose MVC</h4>
+                                <ul class="mb-0">
+                                    <li>For larger, more complex applications</li>
+                                    <li>When you need fine-grained control over routing</li>
+                                    <li>For high reusability of controllers and views</li>
+                                    <li>When building API endpoints alongside your views</li>
+                                    <li>If your team is already familiar with MVC</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="note-box">
+                            <h4 class="mt-0"><i class="fas fa-info-circle mr-2"></i>Important Note</h4>
+                            <p class="mb-0">Razor Pages and MVC are not mutually exclusive. You can use both in the same
+                                ASP.NET Core application! Choose the pattern that best fits each specific part of your
+                                application.</p>
+                        </div>
+                    </section>
+
+                    <!-- Section 3: Page Model -->
+                    <section id="section-3" class="mb-16">
+                        <h1>3. Page Model</h1>
+
+                        <p>The PageModel class is a core concept in Razor Pages that separates the page's logic from its
+                            markup. It encapsulates the data and functionality needed by the Razor Page.</p>
+
+                        <h3>What is a PageModel?</h3>
+                        <p>A PageModel class provides a clean way to separate the business logic from the presentation
+                            logic in a Razor Page. Each .cshtml file can have an associated PageModel class that
+                            typically shares the same name but with a .cs extension (e.g., Index.cshtml and
+                            Index.cshtml.cs).</p>
+
+                        <h3>PageModel Structure</h3>
+
+                        <div class="code-filename">ExampleModel.cs</div>
+                        <pre><code class="language-csharp">using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace MyApp.Pages
+{
+    public class ExampleModel : PageModel
+    {
+        // Properties to hold page data
+        public string Message { get; set; } = "";
+        public List&lt;string> Items { get; set; } = new();
+        
+        // Handler method for GET requests
+        public void OnGet()
+        {
+            Message = "Page loaded with GET";
+            Items = new List&lt;string> { "Item 1", "Item 2", "Item 3" };
+        }
+        
+        // Handler method for POST requests
+        public IActionResult OnPost()
+        {
+            // Process form submission...
+            return RedirectToPage();
+        }
+    }
+}</code></pre>
+
+                        <h3>Key Components of a PageModel</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4><i class="fas fa-project-diagram mr-2"></i>PageModel Inheritance</h4>
+                                <p>All PageModel classes inherit from the PageModel base class, which provides access to
+                                    common properties and methods needed for request processing.</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4><i class="fas fa-cubes mr-2"></i>Properties</h4>
+                                <p>Public properties defined in the PageModel are accessible in the corresponding Razor
+                                    Page via the @Model directive. These properties can be used to pass data from the
+                                    PageModel to the view.</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4><i class="fas fa-hands-helping mr-2"></i>Handler Methods</h4>
+                                <p>Methods that respond to HTTP requests. Common handlers include OnGet() for GET
+                                    requests and OnPost() for POST requests.</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4><i class="fas fa-toolbox mr-2"></i>Helper Properties</h4>
+                                <p>The PageModel base class provides several helper properties like HttpContext,
+                                    ModelState, Request, Response, etc.</p>
+                            </div>
+                        </div>
+
+                        <div class="note-box">
+                            <h4 class="mt-0">Helper Properties Provided by PageModel</h4>
+                            <ul class="mb-0">
+                                <li><strong>HttpContext</strong> - Access to the current HTTP context</li>
+                                <li><strong>ModelState</strong> - Validation state of submitted form values</li>
+                                <li><strong>Request</strong> - The current HTTP request</li>
+                                <li><strong>Response</strong> - The HTTP response to be sent</li>
+                                <li><strong>RouteData</strong> - The current route data</li>
+                                <li><strong>TempData</strong> - Temporary data that persists for a single request</li>
+                                <li><strong>User</strong> - The current user principal</li>
+                            </ul>
+                        </div>
+
+                        <h3>PageModel Lifecycle</h3>
+
+                        <div class="lifecycle-diagram">
+                            <div class="lifecycle-step">
+                                <h4>1. Constructor</h4>
+                                <p>PageModel constructor executes, often used for dependency injection</p>
+                                <div class="code-filename">Example:</div>
+                                <pre><code class="language-csharp">public ExampleModel(IExampleService service)
+{
+    _service = service;
+}</code></pre>
+                            </div>
+
+                            <div class="lifecycle-step">
+                                <h4>2. Model Binding</h4>
+                                <p>Properties marked with [BindProperty] are populated from request data</p>
+                                <div class="code-filename">Example:</div>
+                                <pre><code class="language-csharp">[BindProperty]
+public string Name { get; set; } = "";</code></pre>
+                            </div>
+
+                            <div class="lifecycle-step">
+                                <h4>3. Handler Execution</h4>
+                                <p>The appropriate handler method (OnGet, OnPost, etc.) is executed</p>
+                                <div class="code-filename">Example:</div>
+                                <pre><code class="language-csharp">public void OnGet()
+{
+    Message = "Hello, World!";
+}</code></pre>
+                            </div>
+
+                            <div class="lifecycle-step">
+                                <h4>4. Result Processing</h4>
+                                <p>Handler method's result is processed (e.g., rendering the page)</p>
+                                <div class="code-filename">Example:</div>
+                                <pre><code class="language-csharp">public IActionResult OnPost()
+{
+    if (!ModelState.IsValid)
+        return Page();
+    
+    return RedirectToPage("/Success");
+}</code></pre>
+                            </div>
+
+                            <div class="lifecycle-step">
+                                <h4>5. Page Rendering</h4>
+                                <p>The .cshtml page is rendered with access to the PageModel's properties</p>
+                                <div class="code-filename">Example:</div>
+                                <pre><code class="language-cshtml">&lt;h1>@Model.Message&lt;/h1>
+
+&lt;ul>
+    @foreach (var item in Model.Items)
+    {
+        &lt;li>@item&lt;/li>
+    }
+&lt;/ul></code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Using the BindProperty Attribute</h3>
+
+                        <div class="code-filename">ContactModel.cs</div>
+                        <pre><code class="language-csharp">public class ContactModel : PageModel
+{
+    [BindProperty]
+    public string Name { get; set; } = "";
+    
+    [BindProperty]
+    public string Email { get; set; } = "";
+    
+    [BindProperty]
+    public string Message { get; set; } = "";
+    
+    public string SubmissionResult { get; set; } = "";
+    
+    public void OnGet()
+    {
+        // Initialize the page
+    }
+    
+    public void OnPost()
+    {
+        // Name, Email, and Message properties are automatically
+        // populated from form values due to [BindProperty]
+        
+        if (ModelState.IsValid)
+        {
+            SubmissionResult = $"Thank you, {Name}! We've received your message.";
+        }
+    }
+}</code></pre>
+
+                        <div class="best-practice-box">
+                            <h4 class="mt-0"><i class="fas fa-check-circle mr-2"></i>Best Practice</h4>
+                            <p class="mb-0">For clean separation of concerns, keep data manipulation logic in services
+                                and inject these services into your PageModel. This makes your code more testable and
+                                maintainable.</p>
+                        </div>
+
+                        <h3>Try It Yourself: Create a Basic PageModel</h3>
+                        <p>Let's practice creating a PageModel for a simple contact form:</p>
+                        <ol>
+                            <li>Create a new PageModel class named ContactModel that inherits from PageModel</li>
+                            <li>Add properties for Name, Email, and Message with the [BindProperty] attribute</li>
+                            <li>Implement OnGet() to initialize the page</li>
+                            <li>Implement OnPost() to process the form submission</li>
+                            <li>Add validation to ensure all fields are filled out</li>
+                        </ol>
+                    </section>
+
+                    <!-- Section 4: Routing -->
+                    <section id="section-4" class="mb-16">
+                        <h1>4. Routing</h1>
+
+                        <p>Routing in Razor Pages determines how URLs map to physical pages in your application. By
+                            default, Razor Pages uses a file-based routing system, which makes it intuitive and
+                            straightforward.</p>
+
+                        <h3>Routing Basics</h3>
+                        <p>In Razor Pages, the route for a page is determined by its location in the file system,
+                            relative to the Pages folder. For example, a file at
+                            <code>Pages/Products/Details.cshtml</code> would be accessed via the URL
+                            <code>/Products/Details</code>.
+                        </p>
+
+                        <h3>Default Routing</h3>
+
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>File Location</th>
+                                        <th>URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pages/Index.cshtml</td>
+                                        <td>/</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pages/About.cshtml</td>
+                                        <td>/About</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pages/Products/Index.cshtml</td>
+                                        <td>/Products</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pages/Products/Detail.cshtml</td>
+                                        <td>/Products/Detail</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="note-box">
+                            <h4 class="mt-0"><i class="fas fa-info-circle mr-2"></i>Index Pages</h4>
+                            <p class="mb-0">Files named Index.cshtml act as the default page for a directory. For
+                                example, <code>/Products</code> would route to <code>Pages/Products/Index.cshtml</code>.
+                            </p>
+                        </div>
+
+                        <h3>Route Parameters</h3>
+                        <p>You can add route parameters to your Razor Pages by modifying the <code>@page</code>
+                            directive. This allows you to capture values from the URL.</p>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">ProductDetail.cshtml</div>
+                                <div class="code-tab">ProductDetail.cshtml.cs</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">ProductDetail.cshtml</div>
+                                <pre><code class="language-cshtml">@page "{id:int}"
+@model ProductDetailModel
+
+&lt;h1>Product Details&lt;/h1>
+&lt;p>Viewing product ID: @Model.ProductId&lt;/p></code></pre>
+
+                                <div class="code-filename" style="display:none;">ProductDetail.cshtml.cs</div>
+                                <pre style="display:none;"><code class="language-csharp">public class ProductDetailModel : PageModel
+{
+    public int ProductId { get; set; }
+    
+    public void OnGet(int id)
+    {
+        ProductId = id;
+        // Load product details using the ID
+    }
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Route Parameter Constraints</h3>
+                        <p>ASP.NET Core supports various constraints for route parameters:</p>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4>int</h4>
+                                <p>Parameter must be an integer</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{id:int}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>bool</h4>
+                                <p>Parameter must be a boolean</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{active:bool}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>datetime</h4>
+                                <p>Parameter must be a valid DateTime</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{date:datetime}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>decimal</h4>
+                                <p>Parameter must be a decimal value</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{price:decimal}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>guid</h4>
+                                <p>Parameter must be a valid GUID</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{id:guid}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>required</h4>
+                                <p>Parameter is required</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{name:required}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>minlength / maxlength</h4>
+                                <p>Parameter must have a min/max length</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{code:minlength(6)}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>length</h4>
+                                <p>Parameter must have a specific length range</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{code:length(6,10)}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>range</h4>
+                                <p>Parameter must be within the range</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{quantity:range(1,100)}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>alpha</h4>
+                                <p>Parameter must consist of alphabetical characters</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{name:alpha}"</code>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>regex</h4>
+                                <p>Parameter must match the regular expression</p>
+                                <div class="code-filename">Example:</div>
+                                <code>@page "{sku:regex(^[A-Z]\\d{{3}}$)}"</code>
+                            </div>
+                        </div>
+
+                        <h3>Optional Parameters</h3>
+                        <p>You can make route parameters optional by adding a question mark after the parameter name:
+                        </p>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">ProductDetail.cshtml</div>
+                                <div class="code-tab">ProductDetail.cshtml.cs</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">ProductDetail.cshtml</div>
+                                <pre><code class="language-cshtml">@page "{id:int?}"
+@model ProductDetailModel</code></pre>
+
+                                <div class="code-filename" style="display:none;">ProductDetail.cshtml.cs</div>
+                                <pre style="display:none;"><code class="language-csharp">public void OnGet(int? id)
+{
+    if (id.HasValue)
+    {
+        // Load specific product
+        ProductId = id.Value;
+    }
+    else
+    {
+        // Handle case when no ID is provided
+        ProductId = 0;
+    }
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Multiple Route Templates</h3>
+                        <p>Razor Pages allows you to define multiple route templates for a single page:</p>
+
+                        <pre><code class="language-cshtml">@page
+@page "{id:int}"
+@model ProductDetailModel</code></pre>
+
+                        <p>This configuration allows the page to be accessed both with and without an ID parameter.</p>
+
+                        <h3>Custom Routes</h3>
+                        <p>You can customize the route for a page by adding a different pattern to the
+                            <code>@page</code> directive:
+                        </p>
+
+                        <pre><code class="language-cshtml">@page "/product-details/{id:int}"
+@model ProductDetailModel</code></pre>
+
+                        <p>Now, instead of accessing the page at <code>/Products/Detail/1</code>, you would use
+                            <code>/product-details/1</code>.
+                        </p>
+
+                        <h3>Route Constraints in Action</h3>
+
+                        <div class="visual-diagram">
+                            <div class="box bg-blue-100">
+                                <h4 class="mt-0">URL: /products/detail/42</h4>
+                            </div>
+                            <div class="arrow">↓</div>
+                            <div class="box bg-green-100">
+                                <h4 class="mt-0">Page Directive</h4>
+                                <pre><code class="language-cshtml">@page "{id:int}"</code></pre>
+                                <p class="mb-0">Route matches because '42' is a valid integer</p>
+                            </div>
+                            <div class="arrow">↓</div>
+                            <div class="box bg-yellow-100">
+                                <h4 class="mt-0">Handler Method</h4>
+                                <pre><code class="language-csharp">public void OnGet(int id)
+{
+    ProductId = id; // id = 42
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Areas in Razor Pages</h3>
+                        <p>For larger applications, you can organize your pages into Areas. An Area is a functional
+                            grouping of Razor Pages. For example, you might have an "Admin" area for administrative
+                            pages and a "Shop" area for customer-facing pages.</p>
+
+                        <p>To use Areas, create an Areas folder in your project, then add Area folders under it:</p>
+
+                        <div class="diagram">
+                            <pre><code>MyApp/
+ ├── Areas/
+ │   ├── Admin/
+ │   │   └── Pages/
+ │   │       ├── _ViewImports.cshtml
+ │   │       ├── _ViewStart.cshtml
+ │   │       └── Index.cshtml
+ │   └── Shop/
+ │       └── Pages/
+ │           ├── _ViewImports.cshtml
+ │           ├── _ViewStart.cshtml
+ │           └── Index.cshtml
+ └── Pages/
+     └── Index.cshtml</code></pre>
+                        </div>
+
+                        <p>The URL for <code>Areas/Admin/Pages/Index.cshtml</code> would be <code>/Admin</code>.</p>
+                    </section>
+
+                    <!-- Section 5: Handler Methods -->
+                    <section id="section-5" class="mb-16">
+                        <h1>5. Handler Methods</h1>
+
+                        <p>Handler methods in Razor Pages are responsible for processing HTTP requests. They define what
+                            happens when a user visits a page or submits a form.</p>
+
+                        <h3>What are Handler Methods?</h3>
+                        <p>Handler methods are methods in the PageModel class that respond to HTTP requests. They follow
+                            a naming convention that begins with "On" followed by the HTTP method name (Get, Post,
+                            etc.).</p>
+
+                        <h3>Basic Handler Methods</h3>
+
+                        <div class="code-filename">IndexModel.cs</div>
+                        <pre><code class="language-csharp">public class IndexModel : PageModel
+{
+    public string Message { get; set; } = "";
+    
+    // Handles GET requests
+    public void OnGet()
+    {
+        Message = "This page was loaded with a GET request.";
+    }
+    
+    // Handles POST requests
+    public void OnPost()
+    {
+        Message = "This page was loaded with a POST request.";
+    }
+}</code></pre>
+
+                        <h3>Handler Method Types</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4>Synchronous Handlers</h4>
+                                <pre><code class="language-csharp">void OnGet()
+void OnPost()
+void OnPut()
+void OnDelete()</code></pre>
+                                <p>Simple handlers that execute synchronously. They implicitly return a PageResult.</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Asynchronous Handlers</h4>
+                                <pre><code class="language-csharp">Task OnGetAsync()
+Task OnPostAsync()
+Task OnPutAsync()
+Task OnDeleteAsync()</code></pre>
+                                <p>Handlers that execute asynchronously. Useful for I/O operations like database or API
+                                    calls.</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Handlers with Return Types</h4>
+                                <pre><code class="language-csharp">IActionResult OnGet()
+Task&lt;IActionResult> OnPostAsync()
+RedirectToPageResult OnPost()</code></pre>
+                                <p>Handlers that return specific action results to control response behavior.</p>
+                            </div>
+                        </div>
+
+                        <h3>Named Handler Methods</h3>
+                        <p>Named handlers allow you to handle multiple actions within a single page. They follow the
+                            naming convention of "On[HttpMethod][HandlerName]".</p>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">ProductModel.cs</div>
+                                <div class="code-tab">Products.cshtml</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">ProductModel.cs</div>
+                                <pre><code class="language-csharp">public class ProductModel : PageModel
+{
+    public List&lt;Product> Products { get; set; } = new();
+    
+    public void OnGet()
+    {
+        // Load products
+        LoadProducts();
+    }
+    
+    // Named handler for product deletion
+    public IActionResult OnPostDelete(int id)
+    {
+        // Delete product with the given id
+        DeleteProduct(id);
+        
+        return RedirectToPage();
+    }
+    
+    // Named handler for adding a product to cart
+    public IActionResult OnPostAddToCart(int id)
+    {
+        // Add product to cart
+        AddToCart(id);
+        
+        return RedirectToPage();
+    }
+    
+    private void LoadProducts() { /* ... */ }
+    private void DeleteProduct(int id) { /* ... */ }
+    private void AddToCart(int id) { /* ... */ }
+}</code></pre>
+
+                                <div class="code-filename" style="display:none;">Products.cshtml</div>
+                                <pre style="display:none;"><code class="language-cshtml">&lt;form method="post">
+    &lt;button type="submit" asp-page-handler="Delete" 
+            asp-route-id="@product.Id">Delete&lt;/button>
+&lt;/form>
+
+&lt;form method="post">
+    &lt;button type="submit" asp-page-handler="AddToCart" 
+            asp-route-id="@product.Id">Add to Cart&lt;/button>
+&lt;/form></code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Handler Method Parameters</h3>
+                        <p>Handler methods can accept parameters that are automatically bound from the request:</p>
+
+                        <div class="feature-card bg-blue-50">
+                            <h4>GET with Query String</h4>
+                            <pre><code class="language-csharp">public void OnGet(int id, string category)
+{
+    // 'id' and 'category' are bound from query string
+    // e.g., ?id=5&category=electronics
+}</code></pre>
+                        </div>
+
+                        <div class="feature-card bg-green-50 mt-4">
+                            <h4>POST with Form Data</h4>
+                            <pre><code class="language-csharp">public void OnPost(string name, string email)
+{
+    // 'name' and 'email' are bound from form fields
+}</code></pre>
+                        </div>
+
+                        <h3>Return Types</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4>Page</h4>
+                                <p>Returns the current page. This is the default behavior when a handler method returns
+                                    <code>void</code>.
+                                </p>
+                                <pre><code class="language-csharp">public IActionResult OnGet()
+{
+    return Page();
+}</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>RedirectToPage</h4>
+                                <p>Redirects to another page within the application.</p>
+                                <pre><code class="language-csharp">public IActionResult OnPost()
+{
+    // Redirect to the About page
+    return RedirectToPage("About");
+    
+    // Redirect to the About page with parameters
+    return RedirectToPage("About", new { id = 5 });
+}</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>RedirectToAction</h4>
+                                <p>Redirects to an action in a controller (useful when mixing Razor Pages and MVC).</p>
+                                <pre><code class="language-csharp">public IActionResult OnPost()
+{
+    return RedirectToAction("Index", "Home");
+}</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>NotFound</h4>
+                                <p>Returns a 404 Not Found response.</p>
+                                <pre><code class="language-csharp">public IActionResult OnGet(int id)
+{
+    var item = GetItem(id);
+    
+    if (item == null)
+    {
+        return NotFound();
+    }
+    
+    return Page();
+}</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Content</h4>
+                                <p>Returns a plain text or HTML content response.</p>
+                                <pre><code class="language-csharp">public IActionResult OnGet()
+{
+    return Content("Hello, World!");
+}</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Json</h4>
+                                <p>Returns a JSON response.</p>
+                                <pre><code class="language-csharp">public IActionResult OnGet()
+{
+    var data = new { Name = "John", Age = 30 };
+    return new JsonResult(data);
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Visualization of Handler Method Flow</h3>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="box bg-blue-100">
+                                    <h4 class="mt-0">Routing</h4>
+                                    <p class="mb-0">Matches URL to Page</p>
+                                </div>
+                                <div class="arrow">↓</div>
+                                <div class="box bg-green-100">
+                                    <h4 class="mt-0">Model Binding</h4>
+                                    <p class="mb-0">Populates Parameters/Properties</p>
+                                </div>
+                                <div class="arrow">↓</div>
+                                <div class="box bg-yellow-100">
+                                    <h4 class="mt-0">Handler Method Execution</h4>
+                                    <p class="mb-0">OnGet, OnPost, etc.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="best-practice-box">
+                            <h4 class="mt-0"><i class="fas fa-check-circle mr-2"></i>Best Practices</h4>
+                            <ul class="mb-0">
+                                <li>Use asynchronous handlers (<code>OnGetAsync</code>, <code>OnPostAsync</code>) for
+                                    operations that may take time, such as database queries or HTTP requests</li>
+                                <li>Use named handlers to distinguish between different actions on the same page</li>
+                                <li>Return specific action results (like <code>RedirectToPage</code> or
+                                    <code>NotFound</code>) instead of manipulating the response directly
+                                </li>
+                                <li>Keep handler methods focused on a single responsibility</li>
+                            </ul>
+                        </div>
+
+                        <h3>Practice Exercise: Handler Methods</h3>
+                        <p>Create a task list page with the following handler methods:</p>
+                        <ol>
+                            <li>OnGet() - Display the list of tasks</li>
+                            <li>OnPostAdd() - Add a new task</li>
+                            <li>OnPostDelete() - Delete a task</li>
+                            <li>OnPostComplete() - Mark a task as complete</li>
+                        </ol>
+                    </section>
+
+                    <!-- Section 6: Model Binding -->
+                    <section id="section-6" class="mb-16">
+                        <h1>6. Model Binding</h1>
+
+                        <p>Model binding is the process of extracting values from HTTP requests and mapping them to .NET
+                            objects in your Razor Pages application. It simplifies handling form submissions and query
+                            parameters.</p>
+
+                        <h3>What is Model Binding?</h3>
+                        <p>Model binding automatically maps data from HTTP requests (form posts, query strings, route
+                            data) to properties and parameters in your PageModel. This eliminates the need for manually
+                            parsing request data.</p>
+
+                        <h3>Model Binding Sources</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4><i class="fas fa-wpforms mr-2"></i>Form Data</h4>
+                                <p>Values from HTML form submissions (application/x-www-form-urlencoded or
+                                    multipart/form-data).</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4><i class="fas fa-route mr-2"></i>Route Data</h4>
+                                <p>Values from route templates, like {id} in @page "{id:int}".</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4><i class="fas fa-search mr-2"></i>Query Strings</h4>
+                                <p>Values from the query string portion of the URL (e.g., ?id=5&name=John).</p>
+                            </div>
+                        </div>
+
+                        <h3>Binding to Handler Method Parameters</h3>
+                        <p>The simplest form of model binding is binding request data to handler method parameters:</p>
+
+                        <div class="code-filename">Basic Parameter Binding</div>
+                        <pre><code class="language-csharp">public void OnGet(int id, string name)
+{
+    // id and name are automatically bound from:
+    // 1. Route data (if @page includes {id} and {name})
+    // 2. Query string parameters (?id=5&name=John)
+}</code></pre>
+
+                        <h3>Binding to PageModel Properties</h3>
+                        <p>You can bind request data to properties in your PageModel using the [BindProperty] attribute:
+                        </p>
+
+                        <div class="code-filename">ContactModel.cs</div>
+                        <pre><code class="language-csharp">public class ContactModel : PageModel
+{
+    [BindProperty]
+    public string Name { get; set; } = "";
+    
+    [BindProperty]
+    public string Email { get; set; } = "";
+    
+    [BindProperty]
+    public string Message { get; set; } = "";
+    
+    public string SubmissionResult { get; set; } = "";
+    
+    public void OnGet()
+    {
+        // Initialize the page
+    }
+    
+    public void OnPost()
+    {
+        // Name, Email, and Message are automatically populated
+        // from form fields with matching names
+    }
+}</code></pre>
+
+                        <div class="note-box">
+                            <h4 class="mt-0"><i class="fas fa-info-circle mr-2"></i>Note</h4>
+                            <p class="mb-0">By default, properties with [BindProperty] are only bound on POST requests.
+                                To bind on GET requests as well, use [BindProperty(SupportsGet = true)].</p>
+                        </div>
+
+                        <h3>Binding Complex Objects</h3>
+                        <p>Model binding can map request data to complex objects with nested properties:</p>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">CustomerModel.cs</div>
+                                <div class="code-tab">Customer.cshtml</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">CustomerModel.cs</div>
+                                <pre><code class="language-csharp">public class CustomerModel : PageModel
+{
+    [BindProperty]
+    public Customer Customer { get; set; } = new();
+    
+    public void OnPost()
+    {
+        // Customer object is populated from form fields
+    }
+}
+
+public class Customer
+{
+    public string FirstName { get; set; } = "";
+    public string LastName { get; set; } = "";
+    public Address Address { get; set; } = new();
+}
+
+public class Address
+{
+    public string Street { get; set; } = "";
+    public string City { get; set; } = "";
+    public string ZipCode { get; set; } = "";
+}</code></pre>
+
+                                <div class="code-filename" style="display:none;">Customer.cshtml</div>
+                                <pre style="display:none;"><code class="language-cshtml">&lt;form method="post">
+    &lt;div>
+        &lt;label for="Customer_FirstName">First Name:&lt;/label>
+        &lt;input asp-for="Customer.FirstName" />
+    &lt;/div>
+    
+    &lt;div>
+        &lt;label for="Customer_LastName">Last Name:&lt;/label>
+        &lt;input asp-for="Customer.LastName" />
+    &lt;/div>
+    
+    &lt;div>
+        &lt;label for="Customer_Address_Street">Street:&lt;/label>
+        &lt;input asp-for="Customer.Address.Street" />
+    &lt;/div>
+    
+    &lt;div>
+        &lt;label for="Customer_Address_City">City:&lt;/label>
+        &lt;input asp-for="Customer.Address.City" />
+    &lt;/div>
+    
+    &lt;div>
+        &lt;label for="Customer_Address_ZipCode">Zip Code:&lt;/label>
+        &lt;input asp-for="Customer.Address.ZipCode" />
+    &lt;/div>
+    
+    &lt;button type="submit">Submit&lt;/button>
+&lt;/form></code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Binding Collections</h3>
+                        <p>Model binding can also map form data to collections:</p>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">OrderModel.cs</div>
+                                <div class="code-tab">Order.cshtml</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">OrderModel.cs</div>
+                                <pre><code class="language-csharp">public class OrderModel : PageModel
+{
+    [BindProperty]
+    public List&lt;OrderItem> Items { get; set; } = new();
+    
+    public void OnPost()
+    {
+        // Items collection is populated from form fields
+    }
+}
+
+public class OrderItem
+{
+    public string ProductName { get; set; } = "";
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
+}</code></pre>
+
+                                <div class="code-filename" style="display:none;">Order.cshtml</div>
+                                <pre style="display:none;"><code class="language-cshtml">&lt;form method="post">
+    &lt;div>
+        &lt;h3>Item 1&lt;/h3>
+        &lt;div>
+            &lt;label for="Items_0__ProductName">Product Name:&lt;/label>
+            &lt;input name="Items[0].ProductName" />
+        &lt;/div>
+        &lt;div>
+            &lt;label for="Items_0__Quantity">Quantity:&lt;/label>
+            &lt;input name="Items[0].Quantity" type="number" />
+        &lt;/div>
+        &lt;div>
+            &lt;label for="Items_0__Price">Price:&lt;/label>
+            &lt;input name="Items[0].Price" type="number" step="0.01" />
+        &lt;/div>
+    &lt;/div>
+    
+    &lt;div>
+        &lt;h3>Item 2&lt;/h3>
+        &lt;div>
+            &lt;label for="Items_1__ProductName">Product Name:&lt;/label>
+            &lt;input name="Items[1].ProductName" />
+        &lt;/div>
+        &lt;div>
+            &lt;label for="Items_1__Quantity">Quantity:&lt;/label>
+            &lt;input name="Items[1].Quantity" type="number" />
+        &lt;/div>
+        &lt;div>
+            &lt;label for="Items_1__Price">Price:&lt;/label>
+            &lt;input name="Items[1].Price" type="number" step="0.01" />
+        &lt;/div>
+    &lt;/div>
+    
+    &lt;button type="submit">Submit Order&lt;/button>
+&lt;/form></code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Binding Visualization</h3>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="box bg-blue-100">
+                                    <h4 class="mt-0">HTTP Request</h4>
+                                </div>
+                                <div class="arrow">↓</div>
+                                <div class="box bg-green-100">
+                                    <h4 class="mt-0">ASP.NET Core Model Binder</h4>
+                                    <ul class="text-left mb-0">
+                                        <li>Analyzes request data</li>
+                                        <li>Matches to target parameters/properties</li>
+                                        <li>Converts types appropriately</li>
+                                    </ul>
+                                </div>
+                                <div class="arrow">↓</div>
+                                <div class="box bg-yellow-100">
+                                    <h4 class="mt-0">PageModel Properties</h4>
+                                    <pre><code class="language-csharp">public class ContactModel : PageModel
+{
+    [BindProperty]
+    public string Name { get; set; } = "John";
+    
+    [BindProperty]
+    public string Email { get; set; } = "john@example.com";
+    
+    [BindProperty]
+    public string Message { get; set; } = "Hello!";
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Preventing Over-posting</h3>
+                        <p>Over-posting (or mass assignment) is a security vulnerability where an attacker can modify
+                            properties they shouldn't have access to. To prevent this, you can:</p>
+
+                        <h4>Use Binding Exclusion</h4>
+                        <pre><code class="language-csharp">[BindProperty]
+[BindNever]
+public bool IsAdmin { get; set; }</code></pre>
+
+                        <p>The [BindNever] attribute prevents binding to the specified property.</p>
+
+                        <h4>Use View Models</h4>
+                        <p>Create specific view models that only contain properties the user should be able to modify,
+                            then map these to your domain models.</p>
+
+                        <pre><code class="language-csharp">// View model (only properties the user can modify)
+public class UserViewModel
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
+
+// Domain model (includes sensitive properties)
+public class User
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public bool IsAdmin { get; set; }
+}</code></pre>
+
+                        <div class="best-practice-box">
+                            <h4 class="mt-0"><i class="fas fa-check-circle mr-2"></i>Best Practices</h4>
+                            <ul class="mb-0">
+                                <li>Use the [BindProperty] attribute to clearly indicate which properties should be
+                                    bound</li>
+                                <li>Use view models to prevent over-posting</li>
+                                <li>For GET requests, use the SupportsGet parameter with the [BindProperty] attribute
+                                </li>
+                                <li>Use validation attributes to ensure bound data meets your requirements</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- Section 7: Form Validation -->
+                    <section id="section-7" class="mb-16">
+                        <h1>7. Form Validation</h1>
+
+                        <p>Form validation is essential for ensuring user input meets your application's requirements.
+                            ASP.NET Core provides a robust validation framework for both client-side and server-side
+                            validation.</p>
+
+                        <h3>What is Form Validation?</h3>
+                        <p>Form validation is the process of ensuring that user input meets specific criteria before
+                            it's processed by your application. ASP.NET Core supports both client-side (browser) and
+                            server-side validation.</p>
+
+                        <h3>Server-Side Validation</h3>
+                        <p>Server-side validation is implemented using Data Annotations and the ModelState object:</p>
+
+                        <div class="code-filename">ContactModel.cs</div>
+                        <pre><code class="language-csharp">using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+public class ContactModel : PageModel
+{
+    [BindProperty]
+    [Required(ErrorMessage = "Please enter your name")]
+    [StringLength(100, MinimumLength = 2)]
+    public string Name { get; set; } = "";
+    
+    [BindProperty]
+    [Required(ErrorMessage = "Please enter your email")]
+    [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+    public string Email { get; set; } = "";
+    
+    [BindProperty]
+    [Required(ErrorMessage = "Please enter a message")]
+    [StringLength(1000, MinimumLength = 10, ErrorMessage = "Message must be between 10 and 1000 characters")]
+    public string Message { get; set; } = "";
+    
+    public string SubmissionResult { get; set; } = "";
+    
+    public void OnGet()
+    {
+        // Initialize the page
+    }
+    
+    public IActionResult OnPost()
+    {
+        if (!ModelState.IsValid)
+        {
+            // Return the page with validation errors
+            return Page();
+        }
+        
+        // Process the valid form submission
+        SubmissionResult = "Thank you for your message!";
+        
+        // Clear the form
+        ModelState.Clear();
+        Name = "";
+        Email = "";
+        Message = "";
+        
+        return Page();
+    }
+}</code></pre>
+
+                        <h3>Client-Side Validation</h3>
+                        <p>Client-side validation provides immediate feedback to users without requiring a round trip to
+                            the server. It's implemented using jQuery Validation and jQuery Unobtrusive Validation.</p>
+
+                        <p>To enable client-side validation, include the following script references in your layout or
+                            page:</p>
+
+                        <div class="code-filename">Script References</div>
+                        <pre><code class="language-html">&lt;script src="~/lib/jquery/dist/jquery.min.js">&lt;/script>
+&lt;script src="~/lib/jquery-validation/dist/jquery.validate.min.js">&lt;/script>
+&lt;script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">&lt;/script></code></pre>
+
+                        <p>Or include the partial view that comes with the ASP.NET Core templates:</p>
+
+                        <div class="code-filename">Validation Scripts Partial</div>
+                        <pre><code class="language-cshtml">@section Scripts {
+    &lt;partial name="_ValidationScriptsPartial" />
+}</code></pre>
+
+                        <div class="visual-diagram">
+                            <img src="https://cdn.jsdelivr.net/gh/microsoft/vscode-docs/blogs/2017/12/20/images/validation-overview.gif"
+                                alt="Form Validation Animation" class="w-full rounded-md shadow-lg">
+                            <p class="text-sm text-center text-gray-600 mt-2">Form validation in action, showing
+                                client-side validation providing immediate feedback</p>
+                        </div>
+
+                        <h3>Common Validation Attributes</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4>Required</h4>
+                                <p>Specifies that a property value is required.</p>
+                                <pre><code class="language-csharp">[Required(ErrorMessage = "Please enter your name")]
+public string Name { get; set; } = "";</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>StringLength</h4>
+                                <p>Specifies minimum and maximum length for a string.</p>
+                                <pre><code class="language-csharp">[StringLength(100, MinimumLength = 2, 
+    ErrorMessage = "Name must be between 2 and 100 characters")]
+public string Name { get; set; } = "";</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Range</h4>
+                                <p>Specifies minimum and maximum values for a numeric property.</p>
+                                <pre><code class="language-csharp">[Range(1, 100, ErrorMessage = "Quantity must be between 1 and 100")]
+public int Quantity { get; set; }</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>EmailAddress</h4>
+                                <p>Validates that the property has a valid email format.</p>
+                                <pre><code class="language-csharp">[EmailAddress(ErrorMessage = "Please enter a valid email address")]
+public string Email { get; set; } = "";</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Phone</h4>
+                                <p>Validates that the property has a valid phone number format.</p>
+                                <pre><code class="language-csharp">[Phone(ErrorMessage = "Please enter a valid phone number")]
+public string PhoneNumber { get; set; } = "";</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Url</h4>
+                                <p>Validates that the property has a valid URL format.</p>
+                                <pre><code class="language-csharp">[Url(ErrorMessage = "Please enter a valid URL")]
+public string Website { get; set; } = "";</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>RegularExpression</h4>
+                                <p>Validates that the property matches a specified regular expression pattern.</p>
+                                <pre><code class="language-csharp">[RegularExpression(@"^[A-Z][a-zA-Z0-9]*$", 
+    ErrorMessage = "Username must start with a capital letter")]
+public string Username { get; set; } = "";</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Compare</h4>
+                                <p>Validates that two properties match, often used for password confirmation.</p>
+                                <pre><code class="language-csharp">[Compare("Password", ErrorMessage = "Passwords do not match")]
+public string ConfirmPassword { get; set; } = "";</code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Displaying Validation Errors</h3>
+                        <p>To display validation errors in your Razor Page, use the validation Tag Helpers:</p>
+
+                        <pre><code class="language-cshtml">&lt;form method="post">
+    &lt;div asp-validation-summary="All" class="text-danger">&lt;/div>
+    
+    &lt;div>
+        &lt;label asp-for="Name">&lt;/label>
+        &lt;input asp-for="Name" />
+        &lt;span asp-validation-for="Name" class="text-danger">&lt;/span>
+    &lt;/div>
+    
+    &lt;div>
+        &lt;label asp-for="Email">&lt;/label>
+        &lt;input asp-for="Email" />
+        &lt;span asp-validation-for="Email" class="text-danger">&lt;/span>
+    &lt;/div>
+    
+    &lt;div>
+        &lt;label asp-for="Message">&lt;/label>
+        &lt;textarea asp-for="Message" rows="5">&lt;/textarea>
+        &lt;span asp-validation-for="Message" class="text-danger">&lt;/span>
+    &lt;/div>
+    
+    &lt;button type="submit">Submit&lt;/button>
+&lt;/form></code></pre>
+
+                        <h3>Custom Validation</h3>
+                        <p>You can implement custom validation by creating your own validation attributes or by adding
+                            custom validation in the PageModel:</p>
+
+                        <pre><code class="language-csharp">public IActionResult OnPost()
+{
+    // Custom validation logic
+    if (Name.ToLower() == "admin")
+    {
+        ModelState.AddModelError("Name", "This name is not allowed.");
+    }
+    
+    if (!ModelState.IsValid)
+    {
+        return Page();
+    }
+    
+    // Process the valid form submission
+    return RedirectToPage("ThankYou");
+}</code></pre>
+
+                        <p>You can also create custom validation attributes by inheriting from ValidationAttribute:</p>
+
+                        <pre><code class="language-csharp">using System.ComponentModel.DataAnnotations;
+
+public class NoAdminNameAttribute : ValidationAttribute
+{
+    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    {
+        if (value == null)
+        {
+            return ValidationResult.Success;
+        }
+        
+        string name = value.ToString();
+        
+        if (name.ToLower() == "admin")
+        {
+            return new ValidationResult("This name is not allowed.");
+        }
+        
+        return ValidationResult.Success;
+    }
+}
+
+// Usage:
+[NoAdminName]
+public string Name { get; set; } = "";</code></pre>
+
+                        <div class="best-practice-box">
+                            <h4 class="mt-0"><i class="fas fa-check-circle mr-2"></i>Best Practices</h4>
+                            <ul class="mb-0">
+                                <li>Always implement server-side validation, as client-side validation can be bypassed
+                                </li>
+                                <li>Use Data Annotations for simple validation requirements</li>
+                                <li>Create custom validation for complex business rules</li>
+                                <li>Provide clear, user-friendly error messages</li>
+                                <li>Consider using the [Display] attribute to provide user-friendly names for properties
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- Section 8: Tag Helpers -->
+                    <section id="section-8" class="mb-16">
+                        <h1>8. Tag Helpers</h1>
+
+                        <p>Tag Helpers enable server-side code to participate in creating and rendering HTML elements in
+                            Razor files. They make working with HTML in Razor Pages more intuitive and reduce the amount
+                            of code you need to write.</p>
+
+                        <h3>What are Tag Helpers?</h3>
+                        <p>Tag Helpers are components that attach to HTML elements in your Razor views and modify them
+                            during rendering. They're similar to HTML Helpers but with a syntax that's more familiar to
+                            HTML developers. Tag Helper attributes typically start with the prefix "asp-".</p>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="box bg-blue-100">
+                                    <h4 class="mt-0">Standard HTML</h4>
+                                    <pre><code class="language-html">&lt;a href="/Product/Details/5">View Product&lt;/a></code></pre>
+                                </div>
+                                <div class="arrow">→</div>
+                                <div class="box bg-green-100">
+                                    <h4 class="mt-0">With Tag Helper</h4>
+                                    <pre><code class="language-cshtml">&lt;a asp-page="/Products/Details" asp-route-id="5">
+    View Product
+&lt;/a></code></pre>
+                                </div>
+                            </div>
+                            <p class="text-sm text-center text-gray-600 mt-2">The Tag Helper automatically generates the
+                                correct URL based on your application's routing configuration</p>
+                        </div>
+
+                        <h3>Common Built-in Tag Helpers</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4>Anchor Tag Helper</h4>
+                                <p>Generates links to Razor Pages or MVC controllers/actions.</p>
+                                <pre><code class="language-cshtml">&lt;a asp-page="/Products/Details" asp-route-id="5">
+    View Product
+&lt;/a></code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Form Tag Helper</h4>
+                                <p>Generates HTML form elements with proper action URLs.</p>
+                                <pre><code class="language-cshtml">&lt;form method="post" asp-page-handler="Delete" 
+      asp-route-id="@item.Id">
+    &lt;button type="submit">Delete&lt;/button>
+&lt;/form></code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Input Tag Helper</h4>
+                                <p>Generates HTML input elements with proper binding to model properties.</p>
+                                <pre><code class="language-cshtml">&lt;input asp-for="Product.Name" /></code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Label Tag Helper</h4>
+                                <p>Generates label elements for model properties.</p>
+                                <pre><code class="language-cshtml">&lt;label asp-for="Product.Name">&lt;/label></code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Select Tag Helper</h4>
+                                <p>Generates select elements for model properties.</p>
+                                <pre><code class="language-cshtml">&lt;select asp-for="ProductCategory" 
+        asp-items="Model.Categories">
+    &lt;option value="">Select a category&lt;/option>
+&lt;/select></code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Validation Tag Helpers</h4>
+                                <p>Displays validation messages for model properties.</p>
+                                <pre><code class="language-cshtml">&lt;span asp-validation-for="Product.Name">&lt;/span>
+&lt;div asp-validation-summary="All">&lt;/div></code></pre>
+                            </div>
+                        </div>
+
+                        <h3>Enabling Tag Helpers</h3>
+                        <p>Tag Helpers are enabled in your Razor Pages through the _ViewImports.cshtml file:</p>
+
+                        <pre><code class="language-cshtml">@using YourApp
+@namespace YourApp.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers</code></pre>
+
+                        <p>The <code>@addTagHelper</code> directive registers the Tag Helpers. The asterisk (*) wildcard
+                            specifies that all Tag Helpers in the specified assembly
+                            (Microsoft.AspNetCore.Mvc.TagHelpers) are available to all views in your application.</p>
+
+                        <h3>Anchor Tag Helper</h3>
+                        <p>The Anchor Tag Helper generates links to Razor Pages or MVC controllers/actions:</p>
+
+                        <pre><code class="language-cshtml">&lt;!-- Link to a Razor Page -->
+&lt;a asp-page="/Products/Details" asp-route-id="5">View Product&lt;/a>
+
+&lt;!-- Link to an MVC controller action -->
+&lt;a asp-controller="Products" asp-action="Details" asp-route-id="5">View Product&lt;/a>
+
+&lt;!-- Link to current page with a route value -->
+&lt;a asp-page="./List" asp-route-category="electronics">Electronics&lt;/a>
+
+&lt;!-- Link to a page in an area -->
+&lt;a asp-area="Admin" asp-page="/Products/Index">Admin Products&lt;/a></code></pre>
+
+                        <h3>Form Tag Helper</h3>
+                        <p>The Form Tag Helper generates HTML form elements with proper action URLs:</p>
+
+                        <pre><code class="language-cshtml">&lt;!-- Basic form posting to the current page -->
+&lt;form method="post">
+    &lt;!-- Form fields -->
+    &lt;button type="submit">Submit&lt;/button>
+&lt;/form>
+
+&lt;!-- Form posting to a named handler method -->
+&lt;form method="post" asp-page-handler="Delete" asp-route-id="@item.Id">
+    &lt;button type="submit">Delete&lt;/button>
+&lt;/form>
+
+&lt;!-- Form posting to another page -->
+&lt;form method="post" asp-page="/Account/Login">
+    &lt;!-- Form fields -->
+    &lt;button type="submit">Login&lt;/button>
+&lt;/form></code></pre>
+
+                        <h3>Input Tag Helper</h3>
+                        <p>The Input Tag Helper generates HTML input elements with proper binding to model properties:
+                        </p>
+
+                        <pre><code class="language-cshtml">&lt;!-- Text input for a string property -->
+&lt;input asp-for="Product.Name" />
+
+&lt;!-- Renders as: -->
+&lt;input type="text" id="Product_Name" name="Product.Name" value="Current Value" />
+
+&lt;!-- Input types are automatically determined based on property type -->
+&lt;input asp-for="Product.Price" /> &lt;!-- Renders as type="number" for decimal -->
+&lt;input asp-for="Product.AvailableDate" /> &lt;!-- Renders as type="date" for DateTime -->
+&lt;input asp-for="Product.InStock" /> &lt;!-- Renders as type="checkbox" for bool -->
+&lt;input asp-for="Product.Email" /> &lt;!-- Renders as type="email" with [EmailAddress] --></code></pre>
+
+                        <h3>Select Tag Helper</h3>
+                        <p>The Select Tag Helper generates select elements for model properties:</p>
+
+                        <pre><code class="language-cshtml">&lt;!-- Basic select element -->
+&lt;select asp-for="ProductCategory" asp-items="Model.Categories">
+    &lt;option value="">Select a category&lt;/option>
+&lt;/select></code></pre>
+
+                        <p>The corresponding PageModel code:</p>
+
+                        <pre><code class="language-csharp">public class ProductModel : PageModel
+{
+    [BindProperty]
+    public string ProductCategory { get; set; }
+    
+    public List&lt;SelectListItem> Categories { get; set; }
+    
+    public void OnGet()
+    {
+        Categories = new List&lt;SelectListItem>
+        {
+            new SelectListItem { Value = "electronics", Text = "Electronics" },
+            new SelectListItem { Value = "clothing", Text = "Clothing" },
+            new SelectListItem { Value = "books", Text = "Books" }
+        };
+    }
+}</code></pre>
+
+                        <h3>Validation Tag Helpers</h3>
+                        <p>Validation Tag Helpers display validation messages for model properties:</p>
+
+                        <pre><code class="language-cshtml">&lt;!-- Display validation message for a specific property -->
+&lt;span asp-validation-for="Product.Name" class="text-danger">&lt;/span>
+
+&lt;!-- Display a summary of all validation errors -->
+&lt;div asp-validation-summary="All" class="text-danger">&lt;/div>
+
+&lt;!-- Display only model-level errors (not property-specific) -->
+&lt;div asp-validation-summary="ModelOnly" class="text-danger">&lt;/div></code></pre>
+
+                        <h3>Creating Custom Tag Helpers</h3>
+                        <p>You can create your own Tag Helpers by creating a class that inherits from TagHelper:</p>
+
+                        <pre><code class="language-csharp">using Microsoft.AspNetCore.Razor.TagHelpers;
+
+[HtmlTargetElement("email-link")]
+public class EmailLinkTagHelper : TagHelper
+{
+    public string EmailAddress { get; set; }
+    public string LinkText { get; set; }
+    
+    public override void Process(TagHelperContext context, TagHelperOutput output)
+    {
+        output.TagName = "a";
+        output.Attributes.SetAttribute("href", $"mailto:{EmailAddress}");
+        output.Content.SetContent(string.IsNullOrEmpty(LinkText) ? EmailAddress : LinkText);
+    }
+}</code></pre>
+
+                        <p>To use this custom Tag Helper, register it in _ViewImports.cshtml:</p>
+
+                        <pre><code class="language-cshtml">@addTagHelper *, YourAssemblyName</code></pre>
+
+                        <p>Then use it in your Razor Pages:</p>
+
+                        <pre><code class="language-cshtml">&lt;email-link email-address="[email protected]" link-text="Contact Support">&lt;/email-link>
+
+&lt;!-- Renders as: -->
+&lt;a href="mailto:[email protected]">Contact Support&lt;/a></code></pre>
+
+                        <div class="best-practice-box">
+                            <h4 class="mt-0"><i class="fas fa-check-circle mr-2"></i>Best Practices</h4>
+                            <ul class="mb-0">
+                                <li>Use Tag Helpers consistently throughout your application</li>
+                                <li>Prefer Tag Helpers over HTML Helpers when possible for better readability</li>
+                                <li>Create custom Tag Helpers for repeated HTML patterns in your application</li>
+                                <li>Keep Tag Helpers focused on a single responsibility</li>
+                                <li>Use proper casing for attributes: Tag Helpers use kebab-case (e.g., email-address)
+                                    for attributes, which are mapped to PascalCase properties (e.g., EmailAddress)</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- Section 9: Dependency Injection -->
+                    <section id="section-9" class="mb-16">
+                        <h1>9. Dependency Injection</h1>
+
+                        <p>Dependency Injection (DI) is a technique for achieving loose coupling between classes and
+                            their dependencies. ASP.NET Core has built-in support for DI, which is extensively used in
+                            Razor Pages.</p>
+
+                        <h3>What is Dependency Injection?</h3>
+                        <p>Dependency Injection is a design pattern where a class receives its dependencies from
+                            external sources rather than creating them itself. This makes code more modular, testable,
+                            and maintainable by reducing direct dependencies between components.</p>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="box bg-red-100">
+                                    <h4 class="mt-0">Without DI (Tight Coupling)</h4>
+                                    <pre><code class="language-csharp">public class ProductPage : PageModel
+{
+    // Direct dependency, tightly coupled
+    private readonly SqlProductRepository _repo = 
+        new SqlProductRepository();
+    
+    public void OnGet()
+    {
+        Products = _repo.GetAllProducts();
+    }
+}</code></pre>
+                                </div>
+                                <div class="arrow">→</div>
+                                <div class="box bg-green-100">
+                                    <h4 class="mt-0">With DI (Loose Coupling)</h4>
+                                    <pre><code class="language-csharp">public class ProductPage : PageModel
+{
+    // Interface dependency, loosely coupled
+    private readonly IProductRepository _repo;
+    
+    // Constructor injection
+    public ProductPage(IProductRepository repo)
+    {
+        _repo = repo;
+    }
+    
+    public void OnGet()
+    {
+        Products = _repo.GetAllProducts();
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>DI in ASP.NET Core</h3>
+                        <p>ASP.NET Core includes a built-in DI container that manages the creation and lifetime of
+                            application services. Services are registered in the Program.cs file (or Startup.cs in older
+                            versions):</p>
+
+                        <pre><code class="language-csharp">var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container
+builder.Services.AddRazorPages();
+
+// Register application services
+builder.Services.AddScoped&lt;IProductService, ProductService>();
+builder.Services.AddSingleton&lt;IAppSettings, AppSettings>();
+builder.Services.AddTransient&lt;IEmailSender, EmailSender>();
+
+var app = builder.Build();
+
+// ... Configure middleware ...</code></pre>
+
+                        <h3>Service Lifetimes</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4>Transient</h4>
+                                <p><strong>AddTransient&lt;TService, TImplementation>()</strong></p>
+                                <p>Transient services are created each time they're requested from the service
+                                    container. This lifetime is best for lightweight, stateless services.</p>
+                                <div class="code-filename">Example:</div>
+                                <pre><code class="language-csharp">builder.Services.AddTransient&lt;IEmailSender, EmailSender>();</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Scoped</h4>
+                                <p><strong>AddScoped&lt;TService, TImplementation>()</strong></p>
+                                <p>Scoped services are created once per client request (connection). This is commonly
+                                    used for services that need to maintain state within a request, like database
+                                    contexts.</p>
+                                <div class="code-filename">Example:</div>
+                                <pre><code class="language-csharp">builder.Services.AddScoped&lt;IProductService, ProductService>();</code></pre>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4>Singleton</h4>
+                                <p><strong>AddSingleton&lt;TService, TImplementation>()</strong></p>
+                                <p>Singleton services are created the first time they're requested and then reused for
+                                    all subsequent requests for the lifetime of the application. This is suitable for
+                                    services that maintain state across requests.</p>
+                                <div class="code-filename">Example:</div>
+                                <pre><code class="language-csharp">builder.Services.AddSingleton&lt;IAppSettings, AppSettings>();</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="flow-item">
+                                    <h4 class="text-center">Transient</h4>
+                                    <div class="box bg-blue-100">
+                                        <p class="mb-0">Request 1</p>
+                                    </div>
+                                    <div class="arrow">↓</div>
+                                    <div class="box bg-blue-100">
+                                        <p class="mb-0">Instance A</p>
+                                    </div>
+                                    <div class="arrow">↓</div>
+                                    <div class="box bg-blue-100">
+                                        <p class="mb-0">Instance B</p>
+                                    </div>
+                                </div>
+
+                                <div class="flow-item">
+                                    <h4 class="text-center">Scoped</h4>
+                                    <div class="box bg-green-100">
+                                        <p class="mb-0">Request 1</p>
+                                    </div>
+                                    <div class="arrow">↓</div>
+                                    <div class="box bg-green-100">
+                                        <p class="mb-0">Instance A</p>
+                                    </div>
+                                    <div class="arrow">↓</div>
+                                    <div class="box bg-green-100">
+                                        <p class="mb-0">Instance A</p>
+                                    </div>
+                                </div>
+
+                                <div class="flow-item">
+                                    <h4 class="text-center">Singleton</h4>
+                                    <div class="box bg-yellow-100">
+                                        <p class="mb-0">Request 1</p>
+                                    </div>
+                                    <div class="arrow">↓</div>
+                                    <div class="box bg-yellow-100">
+                                        <p class="mb-0">Instance A</p>
+                                    </div>
+                                    <div class="box bg-yellow-100">
+                                        <p class="mb-0">Request 2</p>
+                                    </div>
+                                    <div class="arrow">↓</div>
+                                    <div class="box bg-yellow-100">
+                                        <p class="mb-0">Instance A</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Using DI in Razor Pages</h3>
+                        <p>You can inject services into your PageModel classes through constructor injection:</p>
+
+                        <pre><code class="language-csharp">public class ProductsModel : PageModel
+{
+    private readonly IProductService _productService;
+    private readonly ILogger&lt;ProductsModel> _logger;
+    
+    public List&lt;Product> Products { get; set; } = new();
+    
+    // Constructor injection
+    public ProductsModel(IProductService productService, ILogger&lt;ProductsModel> logger)
+    {
+        _productService = productService;
+        _logger = logger;
+    }
+    
+    public async Task OnGetAsync()
+    {
+        try
+        {
+            Products = await _productService.GetAllProductsAsync();
+            _logger.LogInformation("Retrieved {Count} products", Products.Count);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving products");
+            Products = new List&lt;Product>();
+        }
+    }
+}</code></pre>
+
+                        <h3>Injecting Services in Razor Pages</h3>
+                        <p>You can also inject services directly into your Razor Pages using the @inject directive:</p>
+
+                        <pre><code class="language-cshtml">@page
+@model AboutModel
+@inject IDateTime DateTimeService
+
+&lt;h1>About&lt;/h1>
+
+&lt;p>Current server time: @DateTimeService.Now&lt;/p></code></pre>
+
+                        <h3>Creating Services</h3>
+                        <p>A typical service consists of an interface and its implementation:</p>
+
+                        <pre><code class="language-csharp">public interface IProductService
+{
+    Task&lt;List&lt;Product>> GetAllProductsAsync();
+    Task&lt;Product> GetProductByIdAsync(int id);
+    Task&lt;int> CreateProductAsync(Product product);
+    Task UpdateProductAsync(Product product);
+    Task DeleteProductAsync(int id);
+}</code></pre>
+
+                        <pre><code class="language-csharp">public class ProductService : IProductService
+{
+    private readonly ApplicationDbContext _dbContext;
+    
+    // Constructor injection
+    public ProductService(ApplicationDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+    
+    public async Task&lt;List&lt;Product>> GetAllProductsAsync()
+    {
+        return await _dbContext.Products.ToListAsync();
+    }
+    
+    public async Task&lt;Product> GetProductByIdAsync(int id)
+    {
+        return await _dbContext.Products.FindAsync(id);
+    }
+    
+    public async Task&lt;int> CreateProductAsync(Product product)
+    {
+        _dbContext.Products.Add(product);
+        await _dbContext.SaveChangesAsync();
+        return product.Id;
+    }
+    
+    public async Task UpdateProductAsync(Product product)
+    {
+        _dbContext.Products.Update(product);
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task DeleteProductAsync(int id)
+    {
+        var product = await _dbContext.Products.FindAsync(id);
+        if (product != null)
+        {
+            _dbContext.Products.Remove(product);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+}</code></pre>
+
+                        <h3>Benefits of DI</h3>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4><i class="fas fa-vial mr-2"></i>Testability</h4>
+                                <p>DI makes unit testing easier by allowing you to substitute real services with mock
+                                    implementations.</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4><i class="fas fa-random mr-2"></i>Flexibility</h4>
+                                <p>You can change implementations without changing the code that uses them.</p>
+                            </div>
+
+                            <div class="feature-card">
+                                <h4><i class="fas fa-tools mr-2"></i>Maintainability</h4>
+                                <p>Components have well-defined interfaces, making the system easier to maintain and
+                                    evolve.</p>
+                            </div>
+                        </div>
+
+                        <div class="best-practice-box">
+                            <h4 class="mt-0"><i class="fas fa-check-circle mr-2"></i>DI Best Practices</h4>
+                            <ul class="mb-0">
+                                <li>Follow the Dependency Inversion Principle: Depend on abstractions (interfaces)
+                                    rather than concrete implementations</li>
+                                <li>Use the appropriate service lifetime for your services</li>
+                                <li>Keep services focused on a single responsibility</li>
+                                <li>Avoid service locator pattern; prefer constructor injection</li>
+                                <li>Don't inject services you don't need</li>
+                                <li>Be cautious when using singleton services that maintain state or have dependencies
+                                    on scoped services</li>
+                            </ul>
+                        </div>
+
+                        <h3>Example: Complete DI Workflow</h3>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="box bg-blue-100">
+                                    <h4 class="mt-0">1. Define Service Interface</h4>
+                                    <pre><code class="language-csharp">public interface IProductService
+{
+    Task&lt;List&lt;Product>> GetAllProductsAsync();
+}</code></pre>
+                                </div>
+                                <div class="arrow">↓</div>
+                                <div class="box bg-green-100">
+                                    <h4 class="mt-0">2. Implement Service</h4>
+                                    <pre><code class="language-csharp">public class ProductService : IProductService
+{
+    private readonly ApplicationDbContext _dbContext;
+    
+    public ProductService(ApplicationDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+    
+    public async Task&lt;List&lt;Product>> GetAllProductsAsync()
+    {
+        return await _dbContext.Products.ToListAsync();
+    }
+}</code></pre>
+                                </div>
+                                <div class="arrow">↓</div>
+                                <div class="box bg-yellow-100">
+                                    <h4 class="mt-0">3. Register Service</h4>
+                                    <pre><code class="language-csharp">// In Program.cs
+builder.Services.AddScoped&lt;IProductService, ProductService>();</code></pre>
+                                </div>
+                                <div class="arrow">↓</div>
+                                <div class="box bg-red-100">
+                                    <h4 class="mt-0">4. Inject Service</h4>
+                                    <pre><code class="language-csharp">public class ProductsModel : PageModel
+{
+    private readonly IProductService _productService;
+    
+    public ProductsModel(IProductService productService)
+    {
+        _productService = productService;
+    }
+    
+    public async Task OnGetAsync()
+    {
+        Products = await _productService.GetAllProductsAsync();
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 10: View Components -->
+                    <section id="section-10" class="mb-16">
+                        <h1>10. View Components</h1>
+
+                        <p>View Components in ASP.NET Core are similar to partial views, but with more power and
+                            flexibility. They allow you to create reusable UI components that can include both rendering
+                            logic and business logic.</p>
+
+                        <h3>What are View Components?</h3>
+                        <p>View Components are self-contained components that render chunks of content in your Razor
+                            Pages. Unlike partial views, View Components:</p>
+                        <ul>
+                            <li>Have their own lifecycle</li>
+                            <li>Can execute business logic</li>
+                            <li>Can have parameters and dependencies injected</li>
+                            <li>Are not dependent on model binding</li>
+                        </ul>
+
+                        <div class="visual-diagram">
+                            <div class="flow">
+                                <div class="box bg-blue-100">
+                                    <h4 class="mt-0">Use Cases for View Components</h4>
+                                    <ul class="text-left mb-0">
+                                        <li>Dynamic navigation menus</li>
+                                        <li>Shopping cart summary</li>
+                                        <li>Login panels</li>
+                                        <li>Sidebar widgets</li>
+                                        <li>Notification systems</li>
+                                        <li>Tag clouds</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Creating a View Component</h3>
+                        <p>A View Component consists of two parts:</p>
+                        <ol>
+                            <li>A class that derives from ViewComponent</li>
+                            <li>A view file that renders the component's output</li>
+                        </ol>
+
+                        <div class="code-filename">ShoppingCartSummaryViewComponent.cs</div>
+                        <pre><code class="language-csharp">using Microsoft.AspNetCore.Mvc;
+
+public class ShoppingCartSummaryViewComponent : ViewComponent
+{
+    private readonly IShoppingCartService _cartService;
+    
+    public ShoppingCartSummaryViewComponent(IShoppingCartService cartService)
+    {
+        _cartService = cartService;
+    }
+    
+    public async Task&lt;IViewComponentResult> InvokeAsync()
+    {
+        var items = await _cartService.GetCartItemsAsync(HttpContext.User);
+        
+        return View(new ShoppingCartViewModel
+        {
+            ItemCount = items.Count,
+            TotalAmount = items.Sum(i => i.Price * i.Quantity)
+        });
+    }
+}
+
+public class ShoppingCartViewModel
+{
+    public int ItemCount { get; set; }
+    public decimal TotalAmount { get; set; }
+}</code></pre>
+
+                        <p>The view file should be placed in one of the following locations:</p>
+                        <ul>
+                            <li>/Pages/Components/ShoppingCartSummary/Default.cshtml</li>
+                            <li>/Views/Shared/Components/ShoppingCartSummary/Default.cshtml</li>
+                        </ul>
+
+                        <div class="code-filename">Default.cshtml</div>
+                        <pre><code class="language-cshtml">@model ShoppingCartViewModel
+
+&lt;div class="cart-summary">
+    &lt;i class="fas fa-shopping-cart">&lt;/i>
+    &lt;span class="badge">@Model.ItemCount&lt;/span>
+    &lt;span class="total">@Model.TotalAmount.ToString("C")&lt;/span>
+&lt;/div></code></pre>
+
+                        <h3>Invoking a View Component</h3>
+                        <p>You can invoke a View Component from a Razor Page or layout in several ways:</p>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">Component Tag Helper</div>
+                                <div class="code-tab">Invoke Method</div>
+                                <div class="code-tab">Async Invoke Method</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">Component Tag Helper</div>
+                                <pre><code class="language-cshtml">&lt;vc:shopping-cart-summary>&lt;/vc:shopping-cart-summary></code></pre>
+
+                                <div class="code-filename" style="display:none;">Invoke Method</div>
+                                <pre
+                                    style="display:none;"><code class="language-cshtml">@await Component.InvokeAsync("ShoppingCartSummary")</code></pre>
+
+                                <div class="code-filename" style="display:none;">Async Invoke Method</div>
+                                <pre
+                                    style="display:none;"><code class="language-cshtml">@await Component.InvokeAsync("ShoppingCartSummary", new { maxItems = 3 })</code></pre>
+                            </div>
+                        </div>
+
+                        <p>To use the component tag helper, you need to add it to your _ViewImports.cshtml file:</p>
+
+                        <pre><code class="language-cshtml">@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, YourAssemblyName</code></pre>
+
+                        <h3>Passing Parameters to View Components</h3>
+                        <p>You can pass parameters to a View Component when invoking it:</p>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">Using Tag Helper</div>
+                                <div class="code-tab">Using Invoke Method</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">Using Tag Helper</div>
+                                <pre><code class="language-cshtml">&lt;vc:product-list category="Electronics" page-size="5">&lt;/vc:product-list></code></pre>
+
+                                <div class="code-filename" style="display:none;">Using Invoke Method</div>
+                                <pre
+                                    style="display:none;"><code class="language-cshtml">@await Component.InvokeAsync("ProductList", new { category = "Electronics", pageSize = 5 })</code></pre>
+                            </div>
+                        </div>
+
+                        <p>The View Component class would accept these parameters:</p>
+
+                        <pre><code class="language-csharp">public async Task&lt;IViewComponentResult> InvokeAsync(string category, int pageSize)
+{
+    var products = await _productService.GetProductsByCategoryAsync(category, pageSize);
+    return View(products);
+}</code></pre>
+
+                        <h3>View Component vs. Partial View</h3>
+
+                        <div class="table-wrapper">
+                            <table class="compare-table">
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>View Component</th>
+                                        <th>Partial View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="feature-name">Business Logic</td>
+                                        <td>Has its own class for business logic</td>
+                                        <td>Relies on the parent view's model</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">Dependency Injection</td>
+                                        <td>Supports constructor DI</td>
+                                        <td>Limited to @inject directive</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">Model Binding</td>
+                                        <td>Does not use model binding</td>
+                                        <td>Uses model from the parent view</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">Async Support</td>
+                                        <td>Supports async operations</td>
+                                        <td>Limited async support</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">Testing</td>
+                                        <td>Easier to test in isolation</td>
+                                        <td>Harder to test separately</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="feature-name">Best Used For</td>
+                                        <td>Complex UI components with logic</td>
+                                        <td>Simple UI fragments without logic</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Named and Multiple Views</h3>
+                        <p>View Components can have multiple views, and you can specify which view to use:</p>
+
+                        <pre><code class="language-csharp">public IViewComponentResult Invoke()
+{
+    // Return a specific view
+    return View("Compact");
+    
+    // Or return with a model
+    return View("Detailed", model);
+}</code></pre>
+
+                        <p>The corresponding view file would be located at:</p>
+                        <ul>
+                            <li>/Pages/Components/[ComponentName]/Compact.cshtml</li>
+                            <li>or /Views/Shared/Components/[ComponentName]/Compact.cshtml</li>
+                        </ul>
+
+                        <h3>Example: Navigation Menu View Component</h3>
+
+                        <div class="code-tabs">
+                            <div class="code-tabs-header">
+                                <div class="code-tab active">NavigationMenuViewComponent.cs</div>
+                                <div class="code-tab">Default.cshtml</div>
+                                <div class="code-tab">Usage</div>
+                            </div>
+                            <div class="code-tab-content">
+                                <div class="code-filename">NavigationMenuViewComponent.cs</div>
+                                <pre><code class="language-csharp">using Microsoft.AspNetCore.Mvc;
+
+public class NavigationMenuViewComponent : ViewComponent
+{
+    private readonly IMenuService _menuService;
+    
+    public NavigationMenuViewComponent(IMenuService menuService)
+    {
+        _menuService = menuService;
+    }
+    
+    public async Task&lt;IViewComponentResult> InvokeAsync(string currentController = "")
+    {
+        var menuItems = await _menuService.GetMenuItemsAsync();
+        
+        ViewBag.CurrentController = currentController;
+        
+        return View(menuItems);
+    }
+}</code></pre>
+                                <div class="code-filename" style="display:none;">Default.cshtml</div>
+                                <pre style="display:none;"><code class="language-cshtml">@model IEnumerable&lt;MenuItem>
+
+&lt;nav class="main-nav">
+    &lt;ul>
+        @foreach (var item in Model)
+        {
+            var isActive = item.Controller == ViewBag.CurrentController;
+            &lt;li class="@(isActive ? "active" : "")">
+                &lt;a asp-controller="@item.Controller" 
+                   asp-action="@item.Action">
+                    @item.Text
+                &lt;/a>
+            &lt;/li>
+        }
+    &lt;/ul>
+&lt;/nav></code></pre>
+                                <div class="code-filename" style="display:none;">Usage</div>
+                                <pre style="display:none;"><code class="language-cshtml">&lt;!-- In _
